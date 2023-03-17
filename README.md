@@ -1,6 +1,6 @@
 # IMC-Fusion
  
-# hi guys
+**hi guys**
 
 This will be the repo for our team going forward
 
