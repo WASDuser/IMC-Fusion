@@ -11,6 +11,7 @@ class Trader:
         """ 
         # Initialize the method output dict as an empty dict
         result = {}
+        # apparently can only buy/sell 20 per timestamp hence implemnted this
         pos_allowance = 20
         #for debugging
         # Iterate over all the keys (the available products) contained in the order depths
@@ -26,8 +27,10 @@ class Trader:
                 # Note that this value of 1 is just a dummy value, you should likely change it!
                 ask_limit = 9998    
                 bid_ceiling = 10002
+                
+                # trying to get access to prev trades but cant for some reason
                 try:
-                    print('prev order: ', list(state.own_trades.keys())[product])
+                    print('prev order: ', list(state.own_trades.keys()))
                 except:
                     print('key not found, missing', product)
                 # If statement checks if there are any SELL orders in the PEARLS market
@@ -70,12 +73,13 @@ class Trader:
 
                 # Initialize the list of Orders to be sent as an empty list
                 orders: list[Order] = []
-                # Define a fair value for the PEARLS.
-                # Note that this value of 1 is just a dummy value, you should likely change it!
+                
                 ask_limit = 4952
                 bid_limit = 4927
+
+                # trying to get access to prev trades but cant for some reason
                 try:
-                    print('prev order: ', list(state.own_trades.keys())[product]    )
+                    print('prev order: ', list(state.own_trades.keys())  )
                 except:
                     print('key not found, missing', product)
                 #print('most recent order is: ', most_recent_order.__str__())
