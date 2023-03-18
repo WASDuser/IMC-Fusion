@@ -4,6 +4,10 @@ from datamodel import OrderDepth, TradingState, Order, Trade
 
 class Trader:
 
+    def __init__(self) -> None:
+        self.sellcount = 0
+        self.buycount = 0
+
     def run(self, state: TradingState) -> Dict[str, List[Order]]:
         """
         Only method required. It takes all buy and sell orders for all symbols as an input,
@@ -20,7 +24,7 @@ class Trader:
 
         #for debugging
         # Iterate over all the keys (the available products) contained in the order depths
-        for product in state.order_depths.keys():
+        for product in ['PEARLS']:
             # Check if the current product is the 'PEARLS' product, only then run the order logic
             # if product == 'PEARLS':
             current = 0
@@ -56,6 +60,9 @@ class Trader:
                     buyvolume = min(upperlimit - current, best_ask_volume)
                     print("BUY", product, str(buyvolume) + "x", best_ask)
                     orders.append(Order(product, best_ask, buyvolume))
+
+                    self.buycount += 1
+
                     current += buyvolume
                     order_depth.sell_orders[best_ask] += buyvolume
                     if (buyvolume == best_ask_volume):
@@ -82,6 +89,9 @@ class Trader:
                     print("SELL", product, str(sellvolume) + "x", best_bid)
                     orders.append(Order(product, best_bid, -sellvolume))
                     current -= sellvolume
+
+                    self.sellcount += 1
+
                     order_depth.buy_orders[best_bid] -= sellvolume
                     if (sellvolume == best_bid_volume):
                         order_depth.buy_orders.pop(best_bid)
@@ -143,6 +153,9 @@ class Trader:
             #     # These possibly contain buy or sell orders for PEARLS
             #     # Depending on the logic above
             print("current position:", current)
-            print("")
             
+        print("total sell orders:", self.sellcount)
+        print("total buy orders:", self.buycount)
+        print("total orders:", self.sellcount + self.buycount)
+        print("\n")
         return result

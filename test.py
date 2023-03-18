@@ -22,7 +22,7 @@ order_depths = {
 	"BANANAS": OrderDepth(),	
 }
 
-order_depths["PEARLS"].buy_orders[10002] = 10
+order_depths["PEARLS"].buy_orders[10002] = 140
 order_depths["PEARLS"].sell_orders[9000] = -10
 
 own_trades = {
