@@ -65,7 +65,39 @@ market_trades = {
 			buyer="",
 			seller="",
 			timestamp=900
-		)
+		), 
+		Trade(
+			symbol="PEARLS",
+			price=10000,
+			quantity=4,
+			buyer="",
+			seller="",
+			timestamp=900
+		), 
+		Trade(
+			symbol="PEARLS",
+			price=10003,
+			quantity=4,
+			buyer="",
+			seller="",
+			timestamp=900
+		), 
+		Trade(
+			symbol="PEARLS",
+			price=10004,
+			quantity=4,
+			buyer="",
+			seller="",
+			timestamp=900
+		), 
+		Trade(
+			symbol="PEARLS",
+			price=10007,
+			quantity=4,
+			buyer="",
+			seller="",
+			timestamp=900
+		), 
 	],
 	"BANANAS": []
 }

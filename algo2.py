@@ -1,6 +1,6 @@
 from typing import Dict, List
 from datamodel import OrderDepth, TradingState, Order, Trade
-
+from functools import reduce 
 
 class Trader:
 
@@ -29,7 +29,7 @@ class Trader:
             # if product == 'PEARLS':
             current = 0
             if product in state.position.keys():
-                current= state.position[product]
+                current = state.position[product]
 
             # Retrieve the Order Depth containing all the market BUY and SELL orders for PEARLS
             order_depth: OrderDepth = state.order_depths[product]
@@ -49,6 +49,17 @@ class Trader:
             for traed in lst:
                 print(traed.symbol , traed.price , traed.quantity)
 
+            
+            # to get ma 50
+            ma = 50
+            market_trades = state.market_trades.get(product, None)
+            ma_length = min(len(market_trades), ma+1)
+            market_trades_shortened = market_trades[-1:-ma_length:-1]
+            market_trades_price = [trade.price for trade in market_trades_shortened]
+            print('market trades', market_trades_price)
+            ma50 = reduce(lambda x,y: x + y, market_trades_price)/len(market_trades_price)
+            print('ma50 is: ', ma50)
+            
             # If statement checks if there are any SELL orders in the PEARLS market
             while len(order_depth.sell_orders) > 0 and current < upperlimit:
                 # Sort all the available sell orders by their price,
