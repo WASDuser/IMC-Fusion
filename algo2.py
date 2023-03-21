@@ -102,56 +102,7 @@ class Trader:
             # Add all the above orders to the result dict
             result[product] = orders
 
-                # Return the dict of orders
-                # These possibly contain buy or sell orders for PEARLS
-                # Depending on the logic above
-        
-            # if product == 'BANANAS':
-            #     # Retrieve the Order Depth containing all the market BUY and SELL orders for PEARLS
-            #     order_depth: OrderDepth = state.order_depths[product]
-
-            #     # Initialize the list of Orders to be sent as an empty list
-            #     orders: list[Order] = []
-                
-            #     ask_limit = 4952
-            #     bid_limit = 4927
-
-            #     # trying to get access to prev trades but cant for some reason
-            #     try:
-            #         print('prev order: ', list(state.own_trades.keys())  )
-            #     except:
-            #         print('key not found, missing', product)
-            #     #print('most recent order is: ', most_recent_order.__str__())
-            #     # If statement checks if there are any SELL orders in the PEARLS market
-            #     if len(order_depth.sell_orders) > 0:
-            #         # Sort all the available sell orders by their price,
-            #         # and select only the sell order with the lowest price
-            #         best_ask = min(order_depth.sell_orders.keys())
-            #         best_ask_volume = min(order_depth.sell_orders[best_ask], 19)
-            #         if best_ask <= bid_limit:
-            #             print("BUY", product, str(-best_ask_volume) + "x", best_ask)
-            #             orders.append(Order(product, best_ask, best_ask_volume))
-
-            #     # The below code block is similar to the one above,
-            #     # the difference is that it finds the highest bid (buy order)
-            #     # If the price of the order is higher than the fair value
-            #     # This is an opportunity to sell at a premium
-            #     # sign should be negative since it is a sell order
-                
-                
-            #     if len(order_depth.buy_orders) != 0:
-            #         best_bid = max(order_depth.buy_orders.keys())
-            #         best_bid_volume = min(order_depth.buy_orders[best_bid], 19)
-            #         if best_bid >= ask_limit:
-            #             print("SELL", product, str(best_bid_volume) + "x", best_bid)
-            #             orders.append(Order(product, best_bid, -best_bid_volume))
-
-            #     # Add all the above orders to the result dict
-            #     result[product] = orders
-
-            #     # Return the dict of orders
-            #     # These possibly contain buy or sell orders for PEARLS
-            #     # Depending on the logic above
+            
             print("current position:", current)
             
         print("total sell orders:", self.sellcount)
@@ -159,3 +110,21 @@ class Trader:
         print("total orders:", self.sellcount + self.buycount)
         print("\n")
         return result
+
+    class MovingAverage:
+        def __init__(self, num):
+            self.num = num
+            self.array = []
+            self.sum = 0
+
+        def isReady(self):
+            return len(self.array) == self.num
+
+        def calculateMA(self):
+            return self.sum / len(self.array)
+
+        def updateMA(self, numba):
+            if self.isReady():
+                self.sum -= self.array.pop(0)
+            self.array.append(numba)
+            self.sum += numba
