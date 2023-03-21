@@ -53,10 +53,8 @@ class Trader:
             # to get ma 50
             ma = 50
             market_trades = state.market_trades.get(product, None)
-            ma_length = min(len(market_trades), ma+1)
-            market_trades_shortened = market_trades[-1:-ma_length:-1]
-            market_trades_price = [trade.price for trade in market_trades_shortened]
-            print('market trades', market_trades_price)
+            ma_length = min(len(market_trades), ma)
+            market_trades_price = [trade.price for trade in market_trades[-1:-ma_length-1:-1]]
             ma50 = reduce(lambda x,y: x + y, market_trades_price)/len(market_trades_price)
             print('ma50 is: ', ma50)
             
